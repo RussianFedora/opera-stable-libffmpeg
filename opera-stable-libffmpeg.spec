@@ -14,7 +14,7 @@
 %define clang 0
 %endif
 
-Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP3 support
+Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
 Name:		%{opera_chan}-libffmpeg
 Version:	%{opera_major_ver}.0.1889.174
 Release:	2%{?dist}
@@ -170,7 +170,7 @@ legal reasons, Opera may not be distributed with H264 compatible FFmpeg library
 included into package.
 
 It's possible to build the extra version of Chromium modified FFmpeg providing
-H264 and MP3 support. Opera-libffmpeg package includes this library.
+H264 and MP4 support. Opera-libffmpeg package includes this library.
 
 %prep
 %setup -q -c
@@ -287,12 +287,12 @@ install -m 644 %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Rele
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so.*
 
 %changelog
-* Fri Aug 21 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 31.0.1889.174-2.R
+* Fri Aug 21 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 5:31.0.1889.174-2.R
 - Drop empty debuginfo package (affects Fedora >= 24)
 
-* Thu Aug 20 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 31.0.1889.174-1.R
+* Thu Aug 20 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 5:31.0.1889.174-1.R
 - Update to 31.0.1889.174
 - Add check_chromium_version.sh
 
-* Wed Aug 12 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 31.0.1889.99-1.R
+* Wed Aug 12 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 5:31.0.1889.99-1.R
 - Initial build
