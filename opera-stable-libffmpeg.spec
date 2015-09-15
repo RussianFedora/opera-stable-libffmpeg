@@ -290,7 +290,7 @@ install -m 644 %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Rele
 
 %changelog
 * Tue Sep 15 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 5:32.0.1948.25-1.R
-- Update to 31.0.1889.174
+- Update to 32.0.1948.25
 
 * Sat Aug 22 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru>
 - Rework patch
