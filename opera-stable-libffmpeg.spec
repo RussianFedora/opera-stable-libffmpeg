@@ -4,8 +4,8 @@
 
 %define chromium_system_libs 0
 
-%define chromium_ver 45.0.2454.93
-%define opera_major_ver 32
+%define chromium_ver 46.0.2490.71
+%define opera_major_ver 33
 %define opera_chan opera-stable
 
 %if 0%{?fedora} >= 21
@@ -16,7 +16,7 @@
 
 Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
 Name:		%{opera_chan}-libffmpeg
-Version:	%{opera_major_ver}.0.1948.69
+Version:	%{opera_major_ver}.0.1990.43
 Release:	1%{?dist}
 Epoch:		5
 
@@ -188,6 +188,9 @@ patch -p1 < %{SOURCE1}
 xz -d %{SOURCE2}
 xz -d %{SOURCE3}
 
+# Workaround for "No such file or directory" build error:
+touch ./chrome/test/data/webui/i18n_process_css_test.html
+
 %build
 buildconfig+="-Dwerror=
                 -Dcomponent=shared_library
@@ -289,6 +292,9 @@ install -m 644 %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Rele
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so.*
 
 %changelog
+* Wed Oct 28 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:33.0.1990.43-1
+- Update to 33.0.1990.43
+
 * Mon Sep 28 2015 carasin berlogue <carasin DOT berlogue AT mail DOT ru> 5:32.0.1948.69-1.R
 - Update to 32.0.1948.69
 
