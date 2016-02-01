@@ -1,5 +1,5 @@
 #!/bin/sh
-BUILD_FROM_RPM=0
+BUILD_FROM_RPM=1
 mkdir -p ./opera-stable-$1
 pushd ./opera-stable-$1 &> /dev/null
 echo -en "\033[0;35m    Downloading Opera Stable package:\033[0m\n"

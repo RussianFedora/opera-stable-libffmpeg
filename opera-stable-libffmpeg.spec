@@ -1,14 +1,16 @@
+%if %{defined rhel}
+%global _missing_build_ids_terminate_build 0
+%endif
+
 %global build_for_x86_64 1
-%global build_for_i386 0
-%define debug_package %{nil}
+%global build_for_i386 1
+%global debug_package %{nil}
 
-%define chromium_system_libs 0
-
-%define chromium_ver 47.0.2526.111
-%define opera_major_ver 34
+%define chromium_system_libs 1
 %define opera_chan opera-stable
+%define opera_ver 35.0.2066.37
 
-%if 0%{?fedora} >= 21
+%if 0%{?fedora} >= 22
 %define clang 1
 %else
 %define clang 0
@@ -16,7 +18,7 @@
 
 Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
 Name:		%{opera_chan}-libffmpeg
-Version:	%{opera_major_ver}.0.2036.50
+Version:	48.0.2564.82
 Release:	1%{?dist}
 Epoch:		5
 
@@ -24,31 +26,10 @@ Group:		Applications/Internet
 License:	BSD, LGPL
 URL:		https://gist.github.com/lukaszzek/ec04d5c953226c062dac
 
-Source0:	https://commondatastorage.googleapis.com/chromium-browser-official/chromium-%{chromium_ver}.tar.xz
-Source1:	https://gist.githubusercontent.com/lukaszzek/ec04d5c953226c062dac/raw/1a2720d602b8399967251137f876faf7d70cc0f3/patch_ffmpeg_gyp.patch
+Source0:	chromium-%{version}.clipped.tar.xz
+Source1:	gn-binaries.tar.xz
 Source2:	depot_tools.tar.xz
-Source3:	gn-binaries.tar.xz
-Source4:	check_chromium_version.sh
-
-#Patch0:	00-ffmpeg_gyp.patch
-
-%ifarch x86_64
-Provides:   libffmpeg.so.%{opera_major_ver}()(64bit)
-%else
-Provides:   libffmpeg.so.%{opera_major_ver}
-%endif
-
-%if 0%{?build_for_x86_64}
-%if !0%{?build_for_i386}
-ExclusiveArch:    x86_64
-%else
-ExclusiveArch:    x86_64 i686
-%endif
-%else
-%if 0%{?build_for_i386}
-ExclusiveArch:    i686
-%endif
-%endif
+Source3:	check_chromium_version.sh
 
 BuildRequires:  SDL-devel
 BuildRequires:  alsa-lib-devel
@@ -88,7 +69,6 @@ BuildRequires:  libtheora-devel >= 1.1
 BuildRequires:  libusbx-devel
 BuildRequires:  libvdpau-devel
 BuildRequires:  libvorbis-devel
-BuildRequires:  libvpx-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  ninja-build
 BuildRequires:  pam-devel
@@ -118,6 +98,7 @@ BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(xscrnsaver)
 BuildRequires:  pkgconfig(xt)
 BuildRequires:  pkgconfig(xtst)
+BuildRequires:  libffi-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  python
 BuildRequires:  python-devel
@@ -142,7 +123,6 @@ BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(opus)
-BuildRequires:  pkgconfig(protobuf)
 BuildRequires:  pkgconfig(speex)
 %endif
 
@@ -161,7 +141,19 @@ BuildRequires:  xvidcore-devel
 BuildRequires:	clang
 %endif
 
-Requires:	%{opera_chan} = 5:%{version}
+Requires:	%{opera_chan} >= 5:%{opera_ver}
+
+%if 0%{?build_for_x86_64}
+%if !0%{?build_for_i386}
+ExclusiveArch:    x86_64
+%else
+ExclusiveArch:    x86_64 i686
+%endif
+%else
+%if 0%{?build_for_i386}
+ExclusiveArch:    i686
+%endif
+%endif
 
 %description
 Due to changes in Chromium, Opera is no longer able to use the system FFmpeg
@@ -174,28 +166,78 @@ It's possible to build the extra version of Chromium modified FFmpeg providing
 H264 and MP4 support. Opera-libffmpeg package includes this library.
 
 %prep
-%setup -q -c
+%setup -n chromium-%{version} -q -a 1 -a 2
 
-## Create symlink for compatibility with %patch0
-#pushd %{_builddir}/%{name}-%{version}
-#ln -s chromium-%{chromium_ver} chromium
-#popd
+# files we do not want from upstream source bundles
+rm -rf breakpad/src/processor/testdata/
+rm -rf chrome/app/test_data/dlls/
+rm -rf chrome/common/extensions/docs/
+#rm -rf chrome/test/data/
+rm -rf chrome/tools/test/reference_build/chrome_linux/
+rm -rf components/test/data/component_updater/jebgalgnebhfojomionfpkfelancnnkf/component1.dll
+rm -rf content/test/data/
+rm -rf net/data/
+rm -rf ppapi/examples/
+rm -rf ppapi/native_client/tests/
+rm -rf third_party/apache-win32/
+rm -rf third_party/binutils/
+rm -rf third_party/expat/files/
+rm -rf third_party/flac/include
+rm -rf third_party/flac/src
+rm -rf third_party/lcov
+rm -rf third_party/libevent/*/*
+rm -rf third_party/libevent/*.[ch]
+rm -rf libexif/sources
+rm -rf libjpeg/*.[ch]
+rm -rf libjpeg_turbo
+rm -rf libpng/*.[ch]
+rm -rf libxslt/libexslt
+rm -rf libxslt/libxslt
+rm -rf libxslt/linux
+rm -rf libxslt/mac
+rm -rf libxslt/win32
+rm -rf mesa/src/src
+rm -rf swig
+rm -rf third_party/WebKit/LayoutTests/
+rm -rf third_party/WebKit/Tools/Scripts/
+rm -rf third_party/xdg-utils/tests/
+rm -rf third_party/yasm/source/
+rm -rf tools/gyp/test/
+rm -rf v8/test/
 
-#%patch0 -p1
-
-cd %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}
-patch -p1 < %{SOURCE1}
-xz -d %{SOURCE2}
-xz -d %{SOURCE3}
-
-# Workaround for "No such file or directory" build error:
-touch ./chrome/test/data/webui/i18n_process_css_test.html
+# Hard code extra version
+FILE=chrome/common/channel_info_posix.cc
+sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"Russian Fedora"/' $FILE
+cmp $FILE $FILE.orig && exit 1
 
 %build
+# https://groups.google.com/a/chromium.org/forum/#!topic/chromium-packagers/9JX1N2nf4PU
+touch chrome/test/data/webui/i18n_process_css_test.html
+touch chrome/test/data/webui_test_resources.grd
+
 buildconfig+="-Dwerror=
+		-Dlinux_sandbox_chrome_path=%{_libdir}/chromium/chrome
+                -Duse_system_ffmpeg=0
+                -Dbuild_ffmpegsumo=1
+                -Dproprietary_codecs=1
+                -Dremove_webcore_debug_symbols=1
+                -Dlogging_like_official_build=1
+                -Dlinux_fpic=1
+                -Ddisable_sse2=1
                 -Dcomponent=shared_library
+                -Dtoolkit_uses_gtk=0
                 -Dffmpeg_branding=Chrome
-                -Dffmpeg_soname_version=%{opera_major_ver}"
+                -Ddisable_nacl=1
+                -Ddisable_glibc=0
+                -Ddisable_pnacl=1
+                -Ddisable_newlib_untar=0
+                -Duse_system_xdg_utils=1
+                -Denable_hotwording=0
+                -Denable_widevine=1
+                -Duse_aura=1
+                -Denable_hidpi=1
+                -Denable_touch_ui=1
+                -Duse_sysroot=0"
 
 %if 0%{?clang}
 buildconfig+=" -Dclang=1
@@ -205,9 +247,10 @@ buildconfig+=" -Dclang=0"
 %endif
 
 %if 0%{?chromium_system_libs}
-buildconfig+=" -Duse_system_icu=1
+buildconfig+=" -Duse_system_icu=0
 		-Duse_system_flac=1
                 -Duse_system_speex=1
+                -Duse_system_expat=1
                 -Duse_system_libexif=1
                 -Duse_system_libevent=1
                 -Duse_system_libmtp=1
@@ -220,12 +263,13 @@ buildconfig+=" -Duse_system_icu=1
                 -Duse_system_libxml=1
                 -Duse_system_libyuv=1
                 -Duse_system_nspr=1
-                -Duse_system_protobuf=1
+                -Duse_system_protobuf=0
                 -Duse_system_yasm=1"
 %else
 buildconfig+=" -Duse_system_icu=0
-		-Duse_system_flac=0
+                -Duse_system_flac=0
                 -Duse_system_speex=0
+                -Duse_system_expat=0
                 -Duse_system_libexif=0
                 -Duse_system_libevent=0
                 -Duse_system_libmtp=0
@@ -252,7 +296,7 @@ buildconfig+=" -Duse_pulseaudio=1
                 -Dlinux_link_gnome_keyring=1
                 -Dlinux_link_gsettings=1
                 -Dlinux_link_libgps=1
-		-Dlinux_link_libspeechd=1
+                -Dlinux_link_libspeechd=1
                 -Djavascript_engine=v8
                 -Dlinux_use_gold_binary=0
                 -Dlinux_use_gold_flags=0
@@ -269,29 +313,31 @@ export CC=/usr/bin/clang
 export CXX=/usr/bin/clang++
 # Modern Clang produces a *lot* of warnings 
 export CXXFLAGS="${CXXFLAGS} -Wno-unknown-warning-option -Wno-unused-local-typedef -Wunknown-attributes -Wno-tautological-undefined-compare"
-export GYP_DEFINES="clang=1 enable_hidpi=1 enable_touch_ui=1 enable_hotwording=0"
-%else
-export GYP_DEFINES="enable_hidpi=1 enable_touch_ui=1 enable_hotwording=0"
+export GYP_DEFINES="clang=1"
 %endif
 
-cd %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}
-./build/linux/unbundle/replace_gyp_files.py $buildconfig
+build/linux/unbundle/replace_gyp_files.py $buildconfig
 
 export GYP_GENERATORS='ninja'
 ./build/gyp_chromium build/all.gyp --depth=. $buildconfig
 
-mkdir -p %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Release
+mkdir -p out/Release
 
-ninja-build -C %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Release ffmpeg
+ninja-build -C out/Release ffmpeg
 
 %install
 mkdir -p %{buildroot}%{_libdir}/%{opera_chan}/lib_extra
-install -m 644 %{_builddir}/%{name}-%{version}/chromium-%{chromium_ver}/out/Release/lib/libffmpeg.so.%{opera_major_ver} %{buildroot}%{_libdir}/%{opera_chan}/lib_extra/
+install -m 644 %{_builddir}/chromium-%{version}/out/Release/lib/libffmpeg.so %{buildroot}%{_libdir}/%{opera_chan}/lib_extra/
 
 %files
-%{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so.*
+%{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Mon Feb 01 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:48.0.2564.82-1
+- Change package numeration due to Chromium version
+- Match Opera version 35.0.2066.37
+- Clip chromium source archive
+
 * Tue Jan 19 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:34.0.2036.50-1
 - Update to 34.0.2036.50
 
