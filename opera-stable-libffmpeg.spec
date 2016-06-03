@@ -2,7 +2,7 @@
 %global _missing_build_ids_terminate_build 0
 %endif
 
-%global build_for_x86_64 0
+%global build_for_x86_64 1
 %global build_for_i386 1
 %global debug_package %{nil}
 %global clang 1
@@ -18,7 +18,7 @@
 Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
 Name:		%{opera_chan}-libffmpeg
 Version:	50.0.2661.102
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		5
 
 Group:		Applications/Internet
@@ -359,6 +359,9 @@ install -m 644 %{_builddir}/chromium-%{version}/out/Release/lib/libffmpeg.so %{b
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Fri Jun 03 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:50.0.2661.102-2
+- Switch on x86_64 arch
+
 * Fri Jun 03 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:50.0.2661.102-1
 - Update to 50.0.2661.102
 - Match Opera version 37.0.2178.54
