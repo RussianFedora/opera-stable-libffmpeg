@@ -30,7 +30,7 @@
 %global bundlere2 1
 
 # Chromium breaks on wayland, hidpi, and colors with gtk3 enabled.
-#%global gtk3 0
+%global gtk3 0
 
 %if 0%{?rhel} == 7
 %global bundleopus 1
@@ -141,7 +141,7 @@ BuildRequires:	opus-devel
 %endif
 BuildRequires:	perl(Switch)
 #%if 0%{gtk3}
-#BuildRequires:	pkgconfig(gtk+-3.0)
+BuildRequires:	pkgconfig(gtk+-3.0)
 #%endif
 BuildRequires:	pulseaudio-libs-devel
 BuildRequires:	python-beautifulsoup4
@@ -291,11 +291,11 @@ export CHROMIUM_BROWSER_GYP_DEFINES="\
 #	-Denable_pepper_cdms=1 \
 #	-Denable_webrtc=1 \
 #	-Denable_widevine=1 \
-#%if 0%{gtk3}
-#	-Duse_gtk3=1 \
-#%else
-#	-Dtoolkit_uses_gtk=0 \
-#%endif
+%if 0%{gtk3}
+	-Duse_gtk3=1 \
+%else
+	-Dtoolkit_uses_gtk=0 \
+%endif
 %if 0
 	-Dbuildtype=Official \
 %endif
