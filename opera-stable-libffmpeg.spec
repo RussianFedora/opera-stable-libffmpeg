@@ -53,14 +53,14 @@
 %global build_for_x86_64 1
 %global build_for_i386 1
 %define opera_chan opera-stable
-%define opera_ver 42.0.2393.94
+%define opera_ver 43.0.2442.806
 
 Name:		%{opera_chan}-libffmpeg
-Version:	55.0.2883.87
+Version:	56.0.2924.76
 %if 0%{?fedora} >= 25
-Release:	2%{?dist}.R
+Release:	1%{?dist}.R
 %else
-Release:	2%{?dist}
+Release:	1%{?dist}
 %endif
 Epoch:		5
 Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
@@ -486,6 +486,10 @@ install -m 644 %{_builddir}/chromium-%{version}/out/Release/libffmpeg.so %{build
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Tue Feb 07 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:56.0.2924.76-1
+- Update to 56.0.2924.76
+- Match Opera version 43.0.2442.806
+
 * Sun Dec 25 2016 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:55.0.2883.87-2
 - Add 'depot_tools.git-master.tar.gz' into git-repo and bump version
 
