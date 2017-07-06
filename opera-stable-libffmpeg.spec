@@ -50,10 +50,10 @@
 %global build_for_x86_64 1
 %global build_for_i386 0
 %define opera_chan opera-stable
-%define opera_ver 46.0.2597.26
+%define opera_ver 46.0.2597.39
 
 Name:		%{opera_chan}-libffmpeg
-Version:	59.0.3071.86
+Version:	59.0.3071.115
 %if 0%{?fedora} >= 25
 Release:	1%{?dist}.R
 %else
@@ -405,6 +405,11 @@ install -m 644 %{_builddir}/chromium-%{version}/out/Release/libffmpeg.so %{build
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Thu Jul 06 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:59.0.3071.115-1
+- Update to 59.0.3071.115
+- Match Opera version 46.0.2597.39
+
+
 * Wed Jun 21 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:59.0.3071.86-1
 - Update to 59.0.3071.86
 - Match Opera version 46.0.2597.26
