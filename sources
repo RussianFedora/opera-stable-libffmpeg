@@ -1,11 +1,11 @@
-249b4ce6844d5e2424967287c638c55c  chromium-59.0.3071.115.tar.xz
+e5f1c85bec4a50df09da6d4b17249826  chromium-60.0.3112.78.tar.xz
 e3bcebe54d7eb7f3a32e626a3767c52e  depot_tools.git-master.tar.gz
-6ab3f3be03cc5a97da188f4f186714ab  chromium-53.0.2785.92-last-commit-position.patch
-48e4fad3da7ab3e2aa85670015ee3572  chromium-57.0.2987.98-gcc48-compat-version-stdatomic.patch
-776649f56b8f7bcad7f23d496bba8042  chromium-gn-bootstrap-r2.patch
-4f23963dd3f9589bfa35a40dd5037be5  chromium-59.0.3071.29-gcc7.patch
+e491e2960a831e9b5947f27155945ce0  chromium-58.0.3029.96-revert-b794998819088f76b4cf44c8db6940240c563cf4.patch
 997f27921ba7e9f60d7621422e1a840f  chromium-59.0.3071.29-i686-ld-memory-tricks.patch
 4c694a0201b5ac3783e2760fb1676493  chromium-59.0.3071.29-nullfix.patch
 a873b7a02c1c6eee07a8c091fa53a49b  chromium-59.0.3071.29-setopaque.patch
+fcbd8af54ab1df1e8955db8021bb1101  chromium-60.0.3095.5-gcc7.patch
+9a8b15b81544dc7c943ce6287abaa721  chromium-60.0.3112.7-last-commit-position.patch
+3d379c46c547a21d6f20fc1c1761bff1  chromium-gn-bootstrap-r8.patch
 d73aea012a31d92c0c1fd3c02cc167da  [deprecated]-get_sources.sh
 cf10bed902036c62efe5cec16b1dd49d  check_chromium_version.sh
