@@ -116,9 +116,9 @@ BuildRequires:  libicu-devel >= 5.4
 Name:		%{opera_chan}-libffmpeg
 Version:	61.0.3163.100
 %if 0%{?rhel} == 7
-Release:	1%{?dist}
+Release:	2%{?dist}
 %else
-Release:	1%{?dist}.R
+Release:	2%{?dist}.R
 %endif
 Epoch:		5
 Summary:	Additional FFmpeg library for Opera Web browser providing H264 and MP4 support
@@ -377,20 +377,6 @@ ExclusiveArch:    x86_64 i686
 %if 0%{?build_for_i386}
 ExclusiveArch:    i686
 %endif
-%endif
-
-# We pick up an automatic requires on the library, but we need the version check
-# because the nss shared library is unversioned.
-# This is to prevent someone from hitting http://code.google.com/p/chromium/issues/detail?id=26448
-Requires:	nss%{_isa} >= 3.12.3
-Requires:	nss-mdns%{_isa}
-
-# GTK modules it expects to find for some reason.
-Requires:	libcanberra-gtk2%{_isa}
-
-%if 0%{?fedora}
-# This enables support for u2f tokens
-Requires:	u2f-hidraw-policy
 %endif
 
 %description
@@ -873,6 +859,9 @@ install -m 644 %{_builddir}/chromium-%{version}/out/Release/libffmpeg.so %{build
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Sat Oct 21 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:59.0.3071.115-2
+- Drop some unneeded deps
+
 * Sat Oct 21 2017 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:59.0.3071.115-1
 - Update to 61.0.3163.100
 - Match Opera version 48.0.2685.50
