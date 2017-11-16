@@ -1,11 +1,10 @@
-bf0629c03b3e3b957a9ee99c10b28210  chromium-61.0.3163.100.tar.xz
+7c00d61cd737a2d81f2b8ca9efb44d6a  chromium-62.0.3202.89.tar.xz
 e491e2960a831e9b5947f27155945ce0  chromium-58.0.3029.96-revert-b794998819088f76b4cf44c8db6940240c563cf4.patch
 997f27921ba7e9f60d7621422e1a840f  chromium-59.0.3071.29-i686-ld-memory-tricks.patch
 4c694a0201b5ac3783e2760fb1676493  chromium-59.0.3071.29-nullfix.patch
 fcbd8af54ab1df1e8955db8021bb1101  chromium-60.0.3095.5-gcc7.patch
 9a8b15b81544dc7c943ce6287abaa721  chromium-60.0.3112.7-last-commit-position.patch
 894584f703e53d22c5fd695c0502b005  chromium-61.0.3163.49-setopaque.patch
-ab7416d1494bb6a0a96fb72c9388580d  chromium-gcc-r1.patch
-22440a6f0c5660e90866d131a40fb0af  chromium-gn-bootstrap-r14.patch
+1e9f37377b470e26dc0fa609c1cdad9e  chromium-gn-bootstrap-r17.patch
 d73aea012a31d92c0c1fd3c02cc167da  [deprecated]-get_sources.sh
 cf10bed902036c62efe5cec16b1dd49d  check_chromium_version.sh
