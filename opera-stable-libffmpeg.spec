@@ -113,10 +113,10 @@ BuildRequires:  libicu-devel >= 5.4
 %global build_for_x86_64 1
 %global build_for_i386 0
 %define opera_chan opera-stable
-%define opera_ver 50.0.2762.45
+%define opera_ver 51.0.2830.34
 
 Name:		%{opera_chan}-libffmpeg
-Version:	63.0.3239.108
+Version:	64.0.3282.140
 %if 0%{?rhel} == 7
 Release:	1%{?dist}
 %else
@@ -691,7 +691,6 @@ build/linux/unbundle/remove_bundled_libraries.py \
 	'third_party/catapult/tracing/third_party/pako' \
 	'third_party/catapult/third_party/polymer' \
 	'third_party/ced' \
-	'third_party/cld_2' \
 	'third_party/crc32c' \
 	'third_party/cros_system_api' \
 	'third_party/devscripts' \
@@ -900,6 +899,10 @@ install -m 644 %{_builddir}/chromium-%{version}/out/Release/libffmpeg.so %{build
 %{_libdir}/%{opera_chan}/lib_extra/libffmpeg.so
 
 %changelog
+* Mon Feb 19 2018 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:64.0.3282.140-1
+- Update to 64.0.3282.140
+- Match Opera version 51.0.2830.34
+
 * Thu Jan 04 2018 carasin berlogue <carasin DOT berlogue AT mail DOT ru> - 5:63.0.3239.108-1
 - Update to 63.0.3239.108
 - Match Opera version 50.0.2762.45
